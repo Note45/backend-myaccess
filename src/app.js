@@ -5,10 +5,14 @@ import json from "body-parser";
 import { config } from "dotenv";
 import cors from "cors";
 
-import { notFound, errorHandler } from "./interface/middlewares/index.js";
+import {
+  notFound,
+  errorHandler,
+} from "./interface/middlewares/error.middleware.js";
 
 import { authRouter } from "./interface/routes/auth.route.js";
 import { hcRouter } from "./interface/routes/hc.route.js";
+import { userRouter } from "./interface/routes/user.route.js";
 
 const app = express();
 
@@ -21,6 +25,7 @@ app.use(json());
 
 app.use("/api/auth", authRouter);
 app.use("/api", hcRouter);
+app.use("/api/user", userRouter);
 
 app.use(notFound);
 app.use(errorHandler);

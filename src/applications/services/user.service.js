@@ -3,7 +3,7 @@ import { PasswordManager } from "../../shared/utils/password.manager.js";
 
 class UserService {
   constructor() {
-    this.client = new UserRepositorySingleton().getInstance();
+    this.repository = new UserRepositorySingleton().getInstance();
     this.passwordManagement = new PasswordManager();
   }
 
@@ -17,7 +17,18 @@ class UserService {
       password: passwordEncrypted,
     };
 
-    const result = await this.client.createUser(formatedUser);
+    const result = await this.repository.createUser(formatedUser);
+
+    delete result?.password;
+
+    return result;
+  }
+
+  async updateUser(userNameOrEmail, user) {
+    delete user?.username;
+    delete user?.password;
+
+    const result = await this.repository.updateUser(userNameOrEmail, user);
 
     delete result?.password;
 

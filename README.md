@@ -3,6 +3,7 @@
 Projeto do backend do sistema MyAccess
 
 ## Para Rodar o Projeto
+Instale um instancia Postgres na sua maquina;
 
 Crie o banco de dados e tabelas necessários com o script abaixo:
 
@@ -27,7 +28,7 @@ CREATE TABLE users (
 Clone o repositorio e entre na pasta do projeto no terminal
 
 ```bash
-https://github.com/Note45/backend-myaccess
+git clone https://github.com/Note45/backend-myaccess
 cd backend-myaccess
 ```
 Crie um arquivo .env dentro da pasta do projeto com o conteudo abaixo.

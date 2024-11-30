@@ -27,7 +27,7 @@ class JWTManager {
 
       return decoded;
     } catch (error) {
-      throw new Error("Token is invalid!");
+      return null;
     }
   }
 }
