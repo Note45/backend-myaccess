@@ -39,6 +39,7 @@ DB_HOST=SEU_VALOR
 DB_DATABASE=SEU_VALOR
 DB_PASSWORD=SEU_VALOR
 DB_PORT=SEU_VALOR
+JWT_SECRET=SEU_VALOR
 ```
 Instale as dependencias com o comando abaixo.
 

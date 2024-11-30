@@ -34,6 +34,19 @@ class UserRepository {
 
     return result.rows[0];
   }
+
+  async getUserByUsernameOrEmail(userNameOrEmail) {
+    const query = `
+      SELECT * FROM Users 
+      WHERE email = $1 OR username = $1;
+    `;
+
+    const values = [userNameOrEmail];
+
+    const result = await this.client.query(query, values);
+
+    return result.rows[0] || null;
+  }
 }
 
 export { UserRepository };
