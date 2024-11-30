@@ -19,7 +19,7 @@ class AuthService {
 
     if (passwordEncrypted) {
       const userToken = await this.jwtManagement.generateToken({
-        usernameOrEmail: login,
+        userNameOrEmail: login,
       });
 
       return {

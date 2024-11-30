@@ -8,7 +8,7 @@ const authMiddleware = async (req, res, next) => {
 
     const result = await jwtManager.validateToken(userToken);
 
-    if (!result?.usernameOrEmail) {
+    if (!result?.userNameOrEmail) {
       return res.status(401).json({
         error: true,
         message: "Credenciais inválidas.",
@@ -20,7 +20,13 @@ const authMiddleware = async (req, res, next) => {
 
     next();
   } catch (error) {
-    next(error);
+    console.log("Error when try to authenticate", error);
+
+    return res.status(401).json({
+      error: true,
+      message: "Credenciais inválidas.",
+      statusCode: 401,
+    });
   }
 };
 
