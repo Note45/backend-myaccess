@@ -17,6 +17,7 @@ class MediaController {
         description: req?.body?.description,
         tags: req?.body?.tags,
         type: req?.body?.type,
+        title: req?.body?.title,
       });
 
       res.status(202).json(result);

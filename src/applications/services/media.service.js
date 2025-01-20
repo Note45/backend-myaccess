@@ -31,7 +31,7 @@ class MediaService {
       type: media.type,
       description: media.description,
       tags: media.tags,
-      link: media.fileUrl,
+      link: fileUrl,
       user_id: user.id,
     };
 
