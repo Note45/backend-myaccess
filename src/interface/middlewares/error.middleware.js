@@ -5,6 +5,7 @@ const notFound = async (req, res, next) => {
 };
 
 const errorHandler = (err, req, res, next) => {
+  console.log("Error: ", err);
   res.status(res.statusCode || 500);
   res.json({
     message: err.message,

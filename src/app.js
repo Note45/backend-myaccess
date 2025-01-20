@@ -13,6 +13,7 @@ import {
 import { authRouter } from "./interface/routes/auth.route.js";
 import { hcRouter } from "./interface/routes/hc.route.js";
 import { userRouter } from "./interface/routes/user.route.js";
+import { mediaRouter } from "./interface/routes/media.route.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(json());
 app.use("/api/auth", authRouter);
 app.use("/api", hcRouter);
 app.use("/api/user", userRouter);
+app.use("/api/media", mediaRouter);
 
 app.use(notFound);
 app.use(errorHandler);
