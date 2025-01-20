@@ -14,6 +14,10 @@ mediaRouter.post(
   (req, res, next) => mediaController.createMedia(req, res, next)
 );
 
+mediaRouter.get("/search", authMiddleware, (req, res, next) =>
+  mediaController.getAllUserMediasByFilters(req, res, next)
+);
+
 mediaRouter.get("/", authMiddleware, (req, res, next) =>
   mediaController.getAllUserMedias(req, res, next)
 );

@@ -40,8 +40,10 @@ class MediaService {
     return mediaCreated;
   }
 
-  async getAllUserMedias(userId, type, limit = 10, offset = 1) {
-    const user = await this.userRepository.getUserByUsernameOrEmail(userId);
+  async getAllUserMedias(userNameOrEmail, type, limit = 10, offset = 1) {
+    const user = await this.userRepository.getUserByUsernameOrEmail(
+      userNameOrEmail
+    );
 
     if (type) {
       return await this.mediaRepository.getAllUserMediasByIdType(
@@ -61,6 +63,24 @@ class MediaService {
 
   async getMediaById(mediaId) {
     return await this.mediaRepository.getMediaById(mediaId);
+  }
+
+  async getAllUserMediasByFilters(
+    userNameOrEmail,
+    filters = {},
+    limit = 10,
+    offset = 1
+  ) {
+    const user = await this.userRepository.getUserByUsernameOrEmail(
+      userNameOrEmail
+    );
+
+    return await this.mediaRepository.getAllUserMediasByFilters(
+      user.id,
+      filters,
+      limit,
+      offset
+    );
   }
 }
 

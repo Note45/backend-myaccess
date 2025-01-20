@@ -88,6 +88,55 @@ class MediaRepository {
 
     return result.rows[0] || null;
   }
+
+  async getAllUserMediasByFilters(
+    userId,
+    filters = {},
+    limit = 10,
+    offset = 1
+  ) {
+    let whereClauses = ["user_id = $1"];
+    let values = [userId];
+    let paramIndex = 2;
+
+    if (filters?.type) {
+      whereClauses.push(`type = $${paramIndex}`);
+      values.push(filters?.type);
+      paramIndex++;
+    }
+
+    if (filters?.title) {
+      whereClauses.push(`title ILIKE $${paramIndex}`);
+      values.push(`%${filters?.title}%`);
+      paramIndex++;
+    }
+
+    if (filters?.tags) {
+      whereClauses.push(`$${paramIndex} = ANY(tags)`);
+      values.push(filters?.tags);
+      paramIndex++;
+    }
+
+    const whereClause = whereClauses.length
+      ? `WHERE ${whereClauses.join(" AND ")}`
+      : "";
+
+    const query = `
+      SELECT * FROM medias
+      ${whereClause}
+      ORDER BY createdAt DESC
+      LIMIT $${paramIndex} OFFSET $${paramIndex + 1};
+    `;
+
+    values.push(limit, offset - 1);
+    const result = await this.client.query(query, values);
+
+    return {
+      total: result.rowCount,
+      perPage: limit,
+      medias: result.rows,
+    };
+  }
 }
 
 export { MediaRepository };

@@ -53,6 +53,28 @@ class MediaController {
       next(error);
     }
   }
+
+  async getAllUserMediasByFilters(req, res, next) {
+    try {
+      const page = parseInt(req?.query?.page) || 1;
+      const limit = parseInt(req?.query?.limit) || 10;
+
+      const result = await this.service.getAllUserMediasByFilters(
+        req?.userNameOrEmail,
+        {
+          title: req?.query?.title,
+          type: req?.query?.type,
+          tags: req?.query?.tags,
+        },
+        limit,
+        page
+      );
+
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export { MediaController };
