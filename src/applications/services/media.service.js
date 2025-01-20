@@ -86,6 +86,11 @@ class MediaService {
   async updateMediaById(mediaId, updates = {}) {
     return await this.mediaRepository.updateMediaById(mediaId, updates);
   }
+
+  async deleteMediaById(mediaId) {
+    return await this.mediaRepository.deleteMediaById(mediaId);
+  }  
+
 }
 
 export { MediaService };

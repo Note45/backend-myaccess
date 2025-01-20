@@ -190,6 +190,26 @@ class MediaRepository {
 
     return result.rows[0];
   }
+
+  async deleteMediaById(mediaId) {
+    const query = `
+      DELETE FROM medias
+      WHERE id = $1
+      RETURNING *;
+    `;
+  
+    const values = [mediaId];
+  
+    const result = await this.client.query(query, values);
+  
+    if (result.rowCount === 0) {
+      throw new Error("Media not found!");
+    }
+  
+    return result.rows[0];
+  }
+  
+
 }
 
 export { MediaRepository };

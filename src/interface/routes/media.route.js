@@ -30,4 +30,8 @@ mediaRouter.patch("/:id", authMiddleware, (req, res, next) =>
   mediaController.updateMediaById(req, res, next)
 );
 
+mediaRouter.delete("/:id", authMiddleware, (req, res, next) =>
+  mediaController.deleteMediaById(req, res, next)
+);
+
 export { mediaRouter };
