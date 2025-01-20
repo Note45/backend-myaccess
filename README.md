@@ -23,6 +23,18 @@ CREATE TABLE users (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Data de criação
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Data de atualização
 );
+
+CREATE TABLE medias (
+    id SERIAL PRIMARY KEY,                      -- Identificador único da mídia
+    title VARCHAR(255) NOT NULL,                 -- Título da mídia
+    type VARCHAR(50) NOT NULL,                   -- Tipo da mídia (ex: vídeo, imagem, áudio, etc.)
+    description TEXT,                            -- Descrição da mídia
+    tags VARCHAR(255),                           -- Tags associadas à mídia (pode ser uma string separada por vírgulas)
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Data de criação da mídia
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Data de atualização da mídia
+    link VARCHAR(500) NOT NULL,                  -- Link da mídia (URL)
+    user_id INT REFERENCES users(id) ON DELETE CASCADE -- Relacionamento com o usuário (chave estrangeira)
+);
 ```
 
 Clone o repositorio e entre na pasta do projeto no terminal
