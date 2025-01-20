@@ -26,4 +26,8 @@ mediaRouter.get("/:id", authMiddleware, (req, res, next) =>
   mediaController.getMediaById(req, res, next)
 );
 
+mediaRouter.patch("/:id", authMiddleware, (req, res, next) =>
+  mediaController.updateMediaById(req, res, next)
+);
+
 export { mediaRouter };

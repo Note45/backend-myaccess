@@ -137,6 +137,59 @@ class MediaRepository {
       medias: result.rows,
     };
   }
+
+  async updateMediaById(mediaId, updates = {}) {
+    let setClauses = [];
+    let values = [];
+    let paramIndex = 1;
+
+    if (updates?.title) {
+      setClauses.push(`title = $${paramIndex}`);
+      values.push(updates?.title);
+      paramIndex++;
+    }
+
+    if (updates?.type) {
+      setClauses.push(`type = $${paramIndex}`);
+      values.push(updates?.type);
+      paramIndex++;
+    }
+
+    if (updates?.description) {
+      setClauses.push(`description = $${paramIndex}`);
+      values.push(updates?.description);
+      paramIndex++;
+    }
+
+    if (updates?.tags) {
+      setClauses.push(`tags = $${paramIndex}`);
+      values.push(updates?.tags);
+      paramIndex++;
+    }
+
+    if (updates?.link) {
+      setClauses.push(`link = $${paramIndex}`);
+      values.push(updates?.link);
+      paramIndex++;
+    }
+
+    values.push(mediaId);
+
+    const query = `
+      UPDATE medias
+      SET ${setClauses.join(", ")}
+      WHERE id = $${paramIndex}
+      RETURNING *;
+    `;
+
+    const result = await this.client.query(query, values);
+
+    if (result.rowCount === 0) {
+      throw new Error("Media not found!");
+    }
+
+    return result.rows[0];
+  }
 }
 
 export { MediaRepository };

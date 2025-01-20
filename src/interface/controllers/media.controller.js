@@ -75,6 +75,22 @@ class MediaController {
       next(error);
     }
   }
+
+  async updateMediaById(req, res, next) {
+    try {
+      const result = await this.service.updateMediaById(req?.params?.id, {
+        title: req?.body?.title,
+        type: req?.body?.type,
+        tags: req?.body?.tags,
+        description: req?.body?.description,
+        link: req?.body?.link,
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export { MediaController };

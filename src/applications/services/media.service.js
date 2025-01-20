@@ -82,6 +82,10 @@ class MediaService {
       offset
     );
   }
+
+  async updateMediaById(mediaId, updates = {}) {
+    return await this.mediaRepository.updateMediaById(mediaId, updates);
+  }
 }
 
 export { MediaService };
