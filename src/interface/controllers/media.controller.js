@@ -28,12 +28,25 @@ class MediaController {
 
   async getAllUserMedias(req, res, next) {
     try {
+      const page = parseInt(req?.query?.page) || 1;
+      const limit = parseInt(req?.query?.limit) || 10;
+
       const result = await this.service.getAllUserMedias(
         req?.userNameOrEmail,
-        req?.params?.type,
-        req?.params?.limit,
-        req?.params?.page
+        req?.query?.type,
+        limit,
+        page
       );
+
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getMediaById(req, res, next) {
+    try {
+      const result = await this.service.getMediaById(req?.params.id);
 
       res.status(200).json(result);
     } catch (error) {

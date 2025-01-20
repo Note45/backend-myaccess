@@ -58,6 +58,10 @@ class MediaService {
       offset
     );
   }
+
+  async getMediaById(mediaId) {
+    return await this.mediaRepository.getMediaById(mediaId);
+  }
 }
 
 export { MediaService };

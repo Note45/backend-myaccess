@@ -75,6 +75,19 @@ class MediaRepository {
       medias: result.rows,
     };
   }
+
+  async getMediaById(mediaId) {
+    const query = `
+      SELECT * FROM medias 
+      WHERE id = $1;
+    `;
+
+    const values = [mediaId];
+
+    const result = await this.client.query(query, values);
+
+    return result.rows[0] || null;
+  }
 }
 
 export { MediaRepository };

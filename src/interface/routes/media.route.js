@@ -18,4 +18,8 @@ mediaRouter.get("/", authMiddleware, (req, res, next) =>
   mediaController.getAllUserMedias(req, res, next)
 );
 
+mediaRouter.get("/:id", authMiddleware, (req, res, next) =>
+  mediaController.getMediaById(req, res, next)
+);
+
 export { mediaRouter };
