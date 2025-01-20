@@ -10,4 +10,9 @@ userRouter.patch("/update", authMiddleware, (req, res, next) =>
   userController.updateUser(req, res, next)
 );
 
+userRouter.patch("/update/password", authMiddleware, (req, res, next) =>
+  userController.updatePassword(req, res, next)
+);
+
+
 export { userRouter };

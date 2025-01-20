@@ -34,6 +34,28 @@ class UserService {
 
     return result;
   }
+
+  async updatePassword(userNameOrEmail, password, newPassword) {
+    const user = await this.repository.getUserByUsernameOrEmail(userNameOrEmail);
+  
+    if (!user) {
+      throw new Error("User not found!");
+    }
+  
+    const isPasswordValid = await this.passwordManagement.comparePassword(password, user.password);
+  
+    if (!isPasswordValid) {
+      throw new Error("Current password is incorrect!");
+    }
+  
+    const encryptedNewPassword = await this.passwordManagement.encryptPassword(newPassword);
+  
+    await this.repository.updateUser(userNameOrEmail, { password: encryptedNewPassword });
+  
+    return { id: user.id, email: user.email };
+  }
+  
+
 }
 
 export { UserService };
