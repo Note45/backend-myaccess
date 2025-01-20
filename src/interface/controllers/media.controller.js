@@ -20,7 +20,22 @@ class MediaController {
         title: req?.body?.title,
       });
 
-      res.status(202).json(result);
+      res.status(201).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getAllUserMedias(req, res, next) {
+    try {
+      const result = await this.service.getAllUserMedias(
+        req?.userNameOrEmail,
+        req?.params?.type,
+        req?.params?.limit,
+        req?.params?.page
+      );
+
+      res.status(200).json(result);
     } catch (error) {
       next(error);
     }

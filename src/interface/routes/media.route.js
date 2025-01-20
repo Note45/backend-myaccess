@@ -14,4 +14,8 @@ mediaRouter.post(
   (req, res, next) => mediaController.createMedia(req, res, next)
 );
 
+mediaRouter.get("/", authMiddleware, (req, res, next) =>
+  mediaController.getAllUserMedias(req, res, next)
+);
+
 export { mediaRouter };
