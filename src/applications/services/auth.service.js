@@ -1,10 +1,12 @@
 import { UserRepositorySingleton } from "../../infrastructure/db/repositories/user.repository.singleton.js";
+import { MediaRepositorySingleton } from "../../infrastructure/db/repositories/media.repository.singleton.js";
 import { PasswordManager } from "../../shared/utils/password.manager.js";
 import { JWTManager } from "../../shared/utils/jwt.manager.js";
 
 class AuthService {
   constructor() {
     this.client = new UserRepositorySingleton().getInstance();
+    this.mediaRepository = new MediaRepositorySingleton().getInstance();
     this.passwordManagement = new PasswordManager();
     this.jwtManagement = new JWTManager();
   }
@@ -22,6 +24,10 @@ class AuthService {
         userNameOrEmail: login,
       });
 
+      const mediaQuantity = await this.mediaRepository.countMediaByUserId(
+        user.id
+      );
+
       return {
         message: "Login realizado com sucesso.",
         token: userToken,
@@ -32,6 +38,7 @@ class AuthService {
           email: user?.email,
           profileImage: user?.profileImage,
           description: user?.description,
+          media: mediaQuantity,
         },
       };
     }

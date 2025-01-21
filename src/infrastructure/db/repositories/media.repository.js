@@ -197,19 +197,49 @@ class MediaRepository {
       WHERE id = $1
       RETURNING *;
     `;
-  
+
     const values = [mediaId];
-  
+
     const result = await this.client.query(query, values);
-  
+
     if (result.rowCount === 0) {
       throw new Error("Media not found!");
     }
-  
+
     return result.rows[0];
   }
-  
 
+  async countMediaByUserId(userId) {
+    const query = `
+      SELECT 
+          type, 
+          COUNT(*) AS type_count
+      FROM 
+          medias
+      WHERE 
+          user_id = $1
+      GROUP BY 
+          type
+      ORDER BY 
+          type_count DESC;
+    `;
+
+    const values = [userId];
+
+    const result = await this.client.query(query, values);
+
+    const defaultCounts = {
+      video: 0,
+      image: 0,
+      audio: 0,
+    };
+
+    result.rows.forEach((row) => {
+      defaultCounts[row.type] = parseInt(row.type_count, 10);
+    });
+
+    return defaultCounts;
+  }
 }
 
 export { MediaRepository };
