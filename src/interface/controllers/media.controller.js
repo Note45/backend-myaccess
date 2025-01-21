@@ -91,6 +91,20 @@ class MediaController {
       next(error);
     }
   }
+
+  async deleteMediaById(req, res, next) {
+    try {
+      const result = await this.service.deleteMediaById(req.params.id);
+      res.status(200).json({
+        message: "Media deleted successfully",
+        deletedMedia: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  
+
 }
 
 export { MediaController };
