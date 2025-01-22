@@ -89,8 +89,19 @@ class MediaService {
 
   async deleteMediaById(mediaId) {
     return await this.mediaRepository.deleteMediaById(mediaId);
-  }  
+  }
 
+  async counterUserMediaByLogin(userNameOrEmail) {
+    const user = await this.userRepository.getUserByUsernameOrEmail(
+      userNameOrEmail
+    );
+
+    const mediaQuantity = await this.mediaRepository.countMediaByUserId(
+      user.id
+    );
+
+    return mediaQuantity;
+  }
 }
 
 export { MediaService };

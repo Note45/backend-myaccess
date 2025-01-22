@@ -103,8 +103,18 @@ class MediaController {
       next(error);
     }
   }
-  
 
+  async counterUserMediaByLogin(req, res, next) {
+    try {
+      const mediaQuantity = await this.service.counterUserMediaByLogin(
+        req?.userNameOrEmail
+      );
+
+      res.status(200).json(mediaQuantity);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export { MediaController };
